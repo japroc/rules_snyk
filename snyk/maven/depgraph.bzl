@@ -39,6 +39,7 @@ def _snyk_maven_depgraph_impl(ctx):
     )
     coordinates = ctx.attr.target[MavenDeps].all_maven_dep_coordinates
     added_coordinates = []
+    print(coordinates)
     for coordinate in sorted(coordinates.to_list()):
         parts = coordinate.split(":")
         name = "%s:%s" % (parts[0], parts[1])
@@ -47,7 +48,9 @@ def _snyk_maven_depgraph_impl(ctx):
         maven_id = "%s@%s" % (name, version)
 
         # we should track if we've added the maven coordintae before, and if we have, then continue the loop so we don't get duplicate pkg ids
-        if maven_id in added_coordinates:
+        if maven_id in 
+        
+        :
             continue
 
         dep_graph.pkgs.append(struct(
