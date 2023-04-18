@@ -39,7 +39,7 @@ def _snyk_maven_depgraph_impl(ctx):
     )
     coordinates = ctx.attr.target[MavenDeps].all_maven_dep_coordinates
     added_coordinates = []
-    print(coordinates)
+    # print(coordinates)
     for coordinate in sorted(coordinates.to_list()):
         parts = coordinate.split(":")
         name = "%s:%s" % (parts[0], parts[1])
