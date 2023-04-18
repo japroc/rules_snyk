@@ -38,6 +38,7 @@ def _maven_deps_aspect_impl(target, ctx):
     maven_coordinates = []
 
     coords = _read_coordinates(ctx.rule.attr.tags)
+    print(coords)
     # if coords and 'booking' in coords:
     #     print('\n', ctx.rule.attr, "->", coords)
     if coords:
@@ -53,9 +54,10 @@ def _maven_deps_aspect_impl(target, ctx):
     for attr in _ASPECT_ATTRS:
         for dep in getattr(ctx.rule.attr, attr, []):
             all_deps.append(dep[MavenDeps].all_maven_dep_coordinates)
-    
-    if coords == 'com.booking.infra:infra-spring-boot:{infra-project}':
-        print(all_deps)
+
+    print(coords)
+    # if coords == 'com.booking.infra:infra-spring-boot:{infra-project}':
+    #     print(all_deps)
 
     return MavenDeps(
         all_maven_dep_coordinates = depset(maven_coordinates, transitive = all_deps),
