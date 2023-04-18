@@ -36,10 +36,9 @@ def _maven_deps_aspect_impl(target, ctx):
         return [MavenDeps(all_maven_dep_coordinates = depset())]
 
     maven_coordinates = []
-    
-    print(ctx.rule.attr)
 
     coords = _read_coordinates(ctx.rule.attr.tags)
+    print(coords)
     if coords:
         maven_coordinates.append(coords)
     else:
