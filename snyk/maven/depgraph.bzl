@@ -48,9 +48,7 @@ def _snyk_maven_depgraph_impl(ctx):
         maven_id = "%s@%s" % (name, version)
 
         # we should track if we've added the maven coordintae before, and if we have, then continue the loop so we don't get duplicate pkg ids
-        if maven_id in 
-        
-        :
+        if maven_id in added_coordinates:
             continue
 
         dep_graph.pkgs.append(struct(
