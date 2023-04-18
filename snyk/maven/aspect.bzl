@@ -79,7 +79,7 @@ def _maven_deps_aspect_impl(target, ctx):
 
     # this is the recursive bit of apsects, each "sub" dep will already have maven_coordinates
     # so we keep "bubbling them up" to the final target
-    all_deps = {}
+    all_deps = []
     for attr in _ASPECT_ATTRS:
         for dep in getattr(ctx.rule.attr, attr, []):
             all_deps.append(dep)
