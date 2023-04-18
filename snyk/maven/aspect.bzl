@@ -31,64 +31,33 @@ def _read_coordinates(tags):
 
     return None
 
-# def _maven_deps_aspect_impl(target, ctx):
-#     if not JavaInfo in target:
-#         return [MavenDeps(all_maven_dep_coordinates = depset())]
-
-#     maven_coordinates = []
-
-#     coords = _read_coordinates(ctx.rule.attr.tags)
-#     print(coords)
-#     # if coords and 'booking' in coords:
-#     #     print('\n', ctx.rule.attr, "->", coords)
-#     if coords:
-#         maven_coordinates.append(coords)
-#     else:
-#         # TODO: decide if this is worth it or too noisy
-#         # print("[!] No maven coordinates found for dep: %s" % (target.label))
-#         pass
-
-#     # this is the recursive bit of apsects, each "sub" dep will already have maven_coordinates
-#     # so we keep "bubbling them up" to the final target
-#     all_deps = []
-#     for attr in _ASPECT_ATTRS:
-#         for dep in getattr(ctx.rule.attr, attr, []):
-#             all_deps.append(dep[MavenDeps].all_maven_dep_coordinates)
-
-#     print(coords)
-#     # if coords == 'com.booking.infra:infra-spring-boot:{infra-project}':
-#     #     print(all_deps)
-
-#     return MavenDeps(
-#         all_maven_dep_coordinates = depset(maven_coordinates, transitive = all_deps),
-#     )
-
 def _maven_deps_aspect_impl(target, ctx):
     if not JavaInfo in target:
-        return [MavenDeps(all_maven_dep_coordinates = {})]
+        return [MavenDeps(all_maven_dep_coordinates = depset())]
 
-    maven_coordinates = {}
+    maven_coordinates = []
 
     coords = _read_coordinates(ctx.rule.attr.tags)
-    # if coords:
-    #     maven_coordinates.append(coords)
-    # else:
-    #     # TODO: decide if this is worth it or too noisy
-    #     # print("[!] No maven coordinates found for dep: %s" % (target.label))
-    #     pass
+    # if coords and 'booking' in coords:
+    #     print('\n', ctx.rule.attr, "->", coords)
+    if coords:
+        maven_coordinates.append(coords)
+    else:
+        # TODO: decide if this is worth it or too noisy
+        # print("[!] No maven coordinates found for dep: %s" % (target.label))
+        pass
 
     # this is the recursive bit of apsects, each "sub" dep will already have maven_coordinates
     # so we keep "bubbling them up" to the final target
     all_deps = []
     for attr in _ASPECT_ATTRS:
         for dep in getattr(ctx.rule.attr, attr, []):
-            all_deps.append(dep)
-            
-    maven_coordinates[coords] = all_deps
+            all_deps.append(dep[MavenDeps].all_maven_dep_coordinates)
 
     return MavenDeps(
-        all_maven_dep_coordinates = maven_coordinates,
+        all_maven_dep_coordinates = depset(maven_coordinates, transitive = all_deps),
     )
+
 
 maven_deps_aspect = aspect(
     implementation = _maven_deps_aspect_impl,
