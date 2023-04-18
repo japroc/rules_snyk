@@ -53,6 +53,9 @@ def _maven_deps_aspect_impl(target, ctx):
     for attr in _ASPECT_ATTRS:
         for dep in getattr(ctx.rule.attr, attr, []):
             all_deps.append(dep[MavenDeps].all_maven_dep_coordinates)
+    
+    if coord == 'com.booking.infra:infra-spring-boot:{infra-project}':
+        print(all_deps)
 
     return MavenDeps(
         all_maven_dep_coordinates = depset(maven_coordinates, transitive = all_deps),
