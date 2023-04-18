@@ -54,7 +54,7 @@ def _maven_deps_aspect_impl(target, ctx):
         for dep in getattr(ctx.rule.attr, attr, []):
             all_deps.append(dep[MavenDeps].all_maven_dep_coordinates)
     
-    if coord == 'com.booking.infra:infra-spring-boot:{infra-project}':
+    if coords == 'com.booking.infra:infra-spring-boot:{infra-project}':
         print(all_deps)
 
     return MavenDeps(
