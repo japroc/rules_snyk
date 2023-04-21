@@ -39,7 +39,10 @@ def _maven_deps_aspect_impl(target, ctx):
 
     coords = _read_coordinates(ctx.rule.attr.tags)
     # if coords and 'booking' in coords:
-    print('\n', ctx.rule.attr, "->", coords)
+    d = getattr(ctx.rule.attr, 'deps', [])
+    if d:
+        print('\n', coords, "->", d)
+    #print(ctx.rule.attr, "->", coords)
     if coords:
         maven_coordinates.append(coords)
     else:
