@@ -5,7 +5,7 @@ load("//snyk:rules.bzl", _monitor = "snyk_depgraph_monitor_deps", _test = "snyk_
 def snyk_maven(
         name,
         target,
-        # snyk_project_name = "",
+        snyk_project_name = "",
         snyk_organization_id = "",
         version = "bazel",
         json = False,
@@ -37,7 +37,7 @@ def snyk_maven(
         name = depgraph_rule_name,
         target = target,
         package_source = package_source,
-        # project_name = snyk_project_name,
+        project_name = snyk_project_name,
         org_id = snyk_organization_id, 
         version = version,
     )
