@@ -9,6 +9,7 @@ def snyk_maven(
         snyk_organization_id = "",
         version = "bazel",
         json = False,
+        json_file_output = "snyk_results.json",
         #nocolor = False
     ):
     
@@ -21,17 +22,18 @@ def snyk_maven(
         org_id = snyk_organization_id, 
         depgraph = depgraph_rule_name,
         json = json,
+        json_file_output = json_file_output,
         #nocolor = nocolor,
     )
 
-    _monitor(
-        name = name + "_monitor",
-        package_source = package_source,
-        org_id = snyk_organization_id, 
-        depgraph = depgraph_rule_name,
-        json = json,
-        # nocolor = nocolor,
-    )
+    # _monitor(
+    #     name = name + "_monitor",
+    #     package_source = package_source,
+    #     org_id = snyk_organization_id, 
+    #     depgraph = depgraph_rule_name,
+    #     json = json,
+    #     # nocolor = nocolor,
+    # )
 
     _depgraph(
         name = depgraph_rule_name,

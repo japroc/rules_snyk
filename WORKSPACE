@@ -21,4 +21,3 @@ pip_parse(
 
 load("@snyk_py_deps//:requirements.bzl", install_snyk_deps = "install_deps")
 install_snyk_deps()
-

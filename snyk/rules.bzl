@@ -15,6 +15,8 @@ def _snyk_depgraph_test_deps_impl(ctx):
       args.append("--snyk-org-id %s" %( ctx.attr.org_id ))
   if ctx.attr.json:
       args.append("--json")
+  if ctx.attr.json_file_output:
+      args.append("--json-file-output %s" %( ctx.attr.json_file_output ))
   #if ctx.attr.nocolor:
   #    args.append("-nocolor")
 
@@ -85,6 +87,9 @@ snyk_depgraph_test_deps = rule(
         "json": attr.bool(
             doc = "Dump full JSON output",
             default = False
+        ),
+        "json_file_output": attr.string(
+            doc = "Dump full JSON to output file",
         ),
         "nocolor": attr.bool(
             doc = "Don't display colors",

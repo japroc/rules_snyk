@@ -1,5 +1,6 @@
 import sys
 import json
+import json as j
 import os
 import typer
 import snyk
@@ -99,6 +100,11 @@ def test(
         "--json",
         help="return the JSON output from the test API results"
     ),
+    json_file_output: str = typer.Option(
+        None,
+        "--json-file-output",
+        help="write the JSON output from the test API results to a file"
+    ),
 ):
 
     snyk_client = snyk.SnykClient(snyk_token)
@@ -117,7 +123,11 @@ def test(
     #    )
     
     if json:
-        print(json.dumps(json_response, indent=4))
+        print(j.dumps(json_response, indent=4))
+        sys.exit(0)
+    if json_file_output:
+        with open(json_file_output, "w") as f:
+            j.dump(json_response, f)
         sys.exit(0)
 
     # create a list of dictionaries with the key of the package name
